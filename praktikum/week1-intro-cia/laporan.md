@@ -80,9 +80,15 @@ Sejarah kriptografi berkembang dari teknik klasik seperti Caesar Cipher yang sed
 
 ## 10. Commit Log
 ```
-commit abc12345
-Author: Nama Mahasiswa <email>
-Date:   2025-09-20
+commit week1-intro-cia
+Author: Amru Muiz Fauzan <amrumuzan092@gmail.com>
+Date:   2025-09-28
 
-    week2-cryptosystem: implementasi Caesar Cipher dan laporan )
+    week1-intro-cia: Meringkas terkait sejarah kriptografi
+
+commit week1-intro-cia
+Author: Amru Muiz Fauzan <amrumuzan092gmail.com>
+Date:   2025-10-05
+
+    week1-intro-cia: Revisi penulisan sejarah kriptografi, pengerjaan quiz serta merapihkan laporan.md dan menaruh dokumentasi di folder screenshots.
 ```
