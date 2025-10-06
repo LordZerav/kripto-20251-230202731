@@ -1,6 +1,6 @@
 # Laporan Praktikum Kriptografi
 Minggu ke-: 1
-Topik: CIA
+Topik: week1-intro-cia
 Nama: Amru Muiz Fauzan
 NIM: 230202731
 Kelas: 5IKRA
@@ -16,33 +16,16 @@ Kelas: 5IKRA
 ---
 
 ## 2. Dasar Teori
-Kriptografi adalah ilmu dan seni menyembunyikan informasi sehingga hanya pihak yang berwenang yang dapat membacanya. Pada era kriptografi klasik, teknik seperti Caesar Cipher digunakan dengan cara mengganti setiap huruf dalam pesan dengan huruf lain berdasarkan aturan tertentu, misalnya menggeser huruf sebanyak tiga posisi. Contoh lain adalah Vigenère Cipher, yang menggunakan kunci berulang untuk menyandikan pesan lebih kompleks dibanding penggeseran sederhana, sehingga lebih sulit dipecahkan.
+Sejarah kriptografi mencatat perkembangan seni dalam menyembunyikan informasi ini dimulai dari teknik-teknik klasik seperti Caesar Cipher pada abad ke-1 SM yang bekerja dengan mengganti setiap huruf dalam pesan berdasarkan pergesaran posisi tertentu dalam alfabet. Perkembangan berikutnya ditandai dengan kemunculan teknik Vignere Cipher pada abad ke-16 yang menggunakan kunci berulang dan tabel alfabet untuk menciptakan sistem enkripsi yang sangat kompleks dan sulit untuk dipecahkan sehingga menjadi penyempurnaan dari metode substitusi sederhana. Teknik-teknik klasik telah menjadi landasan fundamental untuk evolusi kriptografi menuju berbagai bentuk yang lebih maju dan beragam di era modern.
 
-Perkembangan kriptografi modern mulai terlihat dengan hadirnya algoritma seperti RSA dan Advanced Encryption Standard (AES). RSA adalah metode kriptografi kunci publik yang memungkinkan komunikasi aman tanpa perlu berbagi kunci rahasia secara langsung, sedangkan AES adalah standar enkripsi yang digunakan secara luas untuk melindungi data digital secara efisien dan aman. Kedua teknologi ini mendasari keamanan berbagai aplikasi digital saat ini, dari transaksi online sampai komunikasi pribadi.
+Perkembangan kriptografi masa modern ditandai dengan munculnya sebuah algoritma seperti RSA dan Advanced Encryption Standard (AES). RSA ini dikembangkan pada tahun 1977, merupakan metode kriptografi kunci publik yang memungkinkan untuk komunikasi aman tanpa harus berbagi kunci rahasia secara langsung karena menggunakan pasangan kunci publik dan privat yang berbeda fungsi. Kemudian AES menjadi standar enkripsi global sejak tahun 2001 dan masih banyak digunakan untuk melindungi data digital dengan kecepatan dan keamanan yang efisien. Kombinasi kedua metode tersebut juga sering digunakan dalam sistem enkripsi hibrida agar memaksimalkan keamanan serta performa agar terciptanya fondasi teknologi keamanan digital saat ini, terutama dalam transaksi online dan komunikasi pribadi.
 
-Evolusi kriptografi berlanjut ke era kontemporer dengan penerapan teknologi terkini seperti blockchain dan cryptocurrency (misalnya Bitcoin). Blockchain memanfaatkan kriptografi untuk menciptakan sistem terdistribusi yang aman tanpa perlu perantara, sehingga data dapat diverifikasi dan tidak mudah diubah. Selain itu, bidang kriptografi juga berkembang ke teknologi baru seperti kriptografi kuantum yang menyediakan tingkat keamanan lebih tinggi dengan prinsip fisika kuantum.
-
-Tiga pilar keamanan informasi dan contohnya:
-Confidentiality (Kerahasiaan), menjaga agar data hanya dapat diakses oleh pihak yang berwenang. Contohnya:
-- Email terenkripsi agar hanya penerima dapat membacanya.
-- Sistem perbankan online yang melindungi informasi nasabah dengan SSL/TLS.
-- WhatsApp menggunakan enkripsi end-to-end untuk pesan pribadi.
-
-Integrity (Integritas), memastikan data tidak berubah atau dimodifikasi tanpa izin selama penyimpanan atau transmisi. Contohnya:
-- Pemeriksaan hash file saat mengunduh software untuk memastikan file tidak diubah.
-- Digital signature pada dokumen elektronik untuk membuktikan isi tidak diubah.
-- Sistem pembayaran yang memverifikasi transaksi tidak dimanipulasi.
-
-Availability (Ketersediaan), menjamin sistem dan data dapat diakses oleh pengguna yang berwenang kapan pun diperlukan. Contohnya:
-- Server cloud yang memiliki sistem backup untuk mencegah kehilangan data.
-- Jaringan telekomunikasi yang menyediakan akses nonstop bagi pelanggan.
-- Sistem layanan darurat yang harus selalu online untuk dihubungi.
+Dalam era kontemporer, kriptografi berkembang dengan inovasi seperti blockchain dan cryptocurrency (Bitcoin). Blockchain mengaplikasikan kriptografi untuk menghasilkan sistem desentralisasi dan terdistribusi yang menjaga data tetap aman dan sulit dimanipulasi tanpa perlu otoritas pusat. Selain itu, konsep kriptografi kuantum dan homomorphic encryption sedang dikembangkan untuk memberikan tingkat keamanan yang lebih tinggi sesuai dengan tantangan teknologi digital masa depan. Dalam konteks keamanan informasi, ada tiga pilar utama yaitu confidentiality (kerahasiaan), integrity (integritas), dan availability (ketersediaan). Confidentiality menjaga agar data hanya dapat diakses oleh pihak yang berwenang, contohnya dapat dilihat pada email terenkripsi, proteksi SSL/TLS pada perbankan online, dan enkripsi end-to-end WhatsApp. Integrity menjamin data tidak dimodifikasi tanpa izin, dengan contoh pemeriksaan hash file, tanda tangan digital, dan verifikasi transaksi pembayaran. Availability memastikan akses data dan sistem tetap tersedia kapan pun dibutuhkan, contohnya backup server cloud, jaringan telekomunikasi nonstop, dan sistem layanan darurat yang selalu online.
 
 ---
 
 ## 3. Alat dan Bahan
-- Python 3.11.0
-- Visual Studio Code
+- Terminal (CMD / Powershell)
 - Git dan akun GitHub  
 
 ---
@@ -57,52 +40,45 @@ Availability (Ketersediaan), menjamin sistem dan data dapat diakses oleh penggun
 ---
 
 ## 5. Source Code
-Untuk saat ini belum ada keperluan ngodingnya!
+Untuk saat ini belum ada keperluan ngodingnya! Cuma ngelakuin fork-repo dan clone-repo
 ```python
-Belum ngoding bung!
+git clone https://github.com/LordZerav/kripto-20251-230202731.git
 ```
-)
 
 ---
 
 ## 6. Hasil dan Pembahasan
-(- Lampirkan screenshot hasil eksekusi program (taruh di folder `screenshots/`).  
-- Berikan tabel atau ringkasan hasil uji jika diperlukan.  
-- Jelaskan apakah hasil sesuai ekspektasi.  
-- Bahas error (jika ada) dan solusinya. 
-
-Hasil eksekusi program Caesar Cipher:
-
-![Hasil Eksekusi](screenshots/output.png)
-![Hasil Input](screenshots/input.png)
-![Hasil Output](screenshots/output.png)
-)
+![fork-repo-dosen](screenshots/create-fork-and-change-repo-name.png)
+![clone-repo-dosen](screenshots/clone-repo-to-local.png)
+![commit-week1-intro-cia](screenshots/commit-week1-intro-cia.png).
 
 ---
 
 ## 7. Jawaban Pertanyaan
 1. Tokoh yang dianggap sebagai bapak kriptografi modern adalah **Claude Shannon**.
 2. Algoritma kunci publik yang masih populer hingga kini yaitu **RSA**.
-3. Perbedaan utama kriptografi klasik terletak pada penggunaan kunci simetris dan sederhana, sedangkan kriptografi modern menggunakan algoritma kompleks dan kunci asimetris.
+3. Perbedaan utama antara kriptografi klasik dengan kriptografi modern terletak pada kompleksitas metode enkripsi dan tingkat keamanannya. Metode pada kriptografi klasik adalah menggunakan enkripsi sederhana berbasis substitusi dan transposisi yang masih cukup mudah untuk dipecahkan dan biasanya digunakan secara manual. Berbeda dengan kriptografi modern yang menggunakan pendekatan matematis kuat serta kompleks dan untuk memproses data digital dengan tingkat keamanan yang tinggi tersebut perlu menggunakan komputer.
 
 ---
 
 ## 8. Kesimpulan
-(Tuliskan kesimpulan singkat (2–3 kalimat) berdasarkan percobaan.  )
+Sejarah kriptografi berkembang dari teknik klasik seperti Caesar Cipher yang sederhana dan manual kemudian beralih ke metode modern seperti RSA dan AES yang kompleks karena menggunakan matematika canggih dan komputer untuk mengamankan datanya. Pada era kontemporer juga menampilkan inovasi seperti blockchain dan kriptografi kuantum yang semakin meningkatkan keamanan dan desentralisasi data digital. Dalam praktik keamanan informasi, ketiga pilar utama yang dijaga adalah kerahasiaan, integritas dan ketersediaan dengan contoh nyata seperti enkripsi email, tanda tangan digital dan backup data pakai cloud.
 
 ---
 
 ## 9. Daftar Pustaka
-(Cantumkan referensi yang digunakan.  
-Contoh:  
 - Katz, J., & Lindell, Y. *Introduction to Modern Cryptography*.  
-- Stallings, W. *Cryptography and Network Security*.  )
+- Stallings, W. *Cryptography and Network Security*. 
+- p2dpt.uma.ac.id.(2024). _Sejarah Kriptografi: Dari Caesar Cipher hingga Blockhain_.
+- ejournal.utp.ac.id. _Modifikasi Kriptografi Klasik Kombinasi Metode Vigenere._
+- neliti.com. _Analisis Algoritma Kriptografi Klasik Caesar Cipher._
+- ssldragon.com (2025). _Enkripsi RSA vs AES: Penjelasan Perbedaan Utama._
+- Ieravio.com (2023). _Hubungan Kriptografi dengan Blockchain._
+- isc2.org. _Security Principles: The CIA Triad._
 
 ---
 
 ## 10. Commit Log
-(Tuliskan bukti commit Git yang relevan.  
-Contoh:
 ```
 commit abc12345
 Author: Nama Mahasiswa <email>
