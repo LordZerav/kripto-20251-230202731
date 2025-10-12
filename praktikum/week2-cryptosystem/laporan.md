@@ -45,45 +45,48 @@ Perbedaan utama antara sistem simetris dan asimetris terletak pada penggunaan ku
 
 ## 5. Source Code
 ```python
-def encrypt(plaintext, key):
-    result = ""
-    for char in plaintext:
-        if char.isalpha():
-            shift = 65 if char.isupper() else 97
-            result += chr((ord(char) - shift + key) % 26 + shift)
+def enkripsi(teks_asli, kunci):
+    hasil = ""
+    # Proses setiap karakter dalam teks
+    for karakter in teks_asli:
+        if karakter.isalpha():
+            nilai_awal = 65 if karakter.isupper() else 97
+            hasil += chr((ord(karakter) - nilai_awal + kunci) % 26 + nilai_awal)
         else:
-            result += char
-    return result
+            hasil += karakter
+    return hasil
 
-def decrypt(ciphertext, key):
-    result = ""
-    for char in ciphertext:
-        if char.isalpha():
-            shift = 65 if char.isupper() else 97
-            result += chr((ord(char) - shift - key) % 26 + shift)
+def dekripsi(teks_terenkripsi, kunci):
+    hasil = ""
+    # Proses setiap karakter dalam teks terenkripsi
+    for karakter in teks_terenkripsi:
+        if karakter.isalpha():
+            nilai_awal = 65 if karakter.isupper() else 97
+            hasil += chr((ord(karakter) - nilai_awal - kunci) % 26 + nilai_awal)
         else:
-            result += char
-    return result
+            hasil += karakter
+    return hasil
 
+# Program utama yang akan dijalankan jika file ini dieksekusi langsung
 if __name__ == "__main__":
-    message = "<nim><nama>"
-    key = 5
+    # Data yang akan dienkripsi
+    pesan = "<230202731><Amru Muiz Fauzan>"
+    kunci = 5
 
-    enc = encrypt(message, key)
-    dec = decrypt(enc, key)
+    hasil_enkripsi = enkripsi(pesan, kunci)
+    hasil_dekripsi = dekripsi(hasil_enkripsi, kunci)
 
-    print("Plaintext :", message)
-    print("Ciphertext:", enc)
-    print("Decrypted :", dec)
+    print("Teks Asli   :", pesan)
+    print("Hasil Enkripsi:", hasil_enkripsi)
+    print("Hasil Dekripsi:", hasil_dekripsi)
 ```
 
 ---
 
 ## 6. Hasil dan Pembahasan
 ```
-![Hasil Eksekusi](screenshots/output.png)
-![Hasil Input](screenshots/input.png)
-![Hasil Output](screenshots/output.png)
+![Skema Kriptosistem](screenshots/diagram-skema-kriptosistem.png)
+![Output Implementasi Kode](screenshots/hasil_eksekusi.png)
 ```
 
 ---
@@ -116,9 +119,9 @@ Kriptosistem merupakan sistem keamanan yang vital, dibangun di atas lima kompone
 
 ## 10. Commit Log
 ```
-commit abc12345
-Author: Nama Mahasiswa <email>
-Date:   2025-09-20
+commit week2-cryptosystem
+Author: Amru Muiz Fauzan <amrumuzan092@gmail.com>
+Date:   2025-10-12
 
     week2-cryptosystem: implementasi Caesar Cipher dan laporan )
 ```
