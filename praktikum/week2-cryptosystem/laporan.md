@@ -84,10 +84,8 @@ if __name__ == "__main__":
 ---
 
 ## 6. Hasil dan Pembahasan
-```
 ![Skema Kriptosistem](screenshots/diagram-skema-kriptosistem.png)
 ![Output Implementasi Kode](screenshots/hasil_eksekusi.png)
-```
 
 ---
 
