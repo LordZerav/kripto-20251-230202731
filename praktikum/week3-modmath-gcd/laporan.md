@@ -17,13 +17,11 @@ Kelas: 5IKRA
 ---
 
 ## 2. Dasar Teori
-```
 Aritmatika modular merupakan salah satu konsep fundamental dari bidang matematika yang memiliki peranan penting untuk pengembangan ilmu komputasi modern. Konsep ini diperkenalkan secara formal oleh **Carl Friedrich Gauss** pada tahun 1801 melalui karyanya _Disquisitiones Arithmeticae_. Dalam sistem ini, dua bilangan dikatakan kongruen jika memiliki sisa pembagian yang sama dengan suatu bilangan modulus lain. Contohnya seperti ini, 17 ≡ 5 (mod 12) karena keduanya punya sisa 5 ketika dibagi dengan 12. Nah, prinsip dasar aritmatika modular ini ternyata banyak diterapkan dalam kriptografi, teori bilangan, serta sistem digital yang butuh perhitungan berulang dengan ruang terbatas. Contoh penerapannya bisa kita temui pada sistem penunjuk waktu di mana operasi (10 + 2) mod 12 = 0, artinya dua jam setelah pukul 10 akan kembali ke posisi awal yaitu pukul 12.
 
 Kemudian konsep _Greatest Common Divisor_ (GCD) memiliki akar sejarah yang panjang dan sudah dikenal sejak masa Yunani Kuno melalui karya _Euclid_ pada abad ke-3 SM dalam buku _Elements_. **Euclid** memperkenalkan metode sistematis yang kita kenal sebagai Algoritma Euclidean. Algoritma ini digunakan untuk menentukan GCD dari dua bilangan tanpa perlu faktorisasi. Proses ini didasarkan pada prinsip bahwa GCD (a,b) = GCD (b, a mod b), dan perhitungan dilakukan berulang hingga diperoleh sisa nol. Contohnya, untuk bilangan 48 dan 18 diperoleh hasil secara berturut-turut yaitu 48 mod 18 = 12, kemudian 18 mod 12 = 6, dan 12 mod 6 = 0 sehingga GCDnya adalah 6. Konsep algoritma ini berperan dalam sistem kriptografi modern (RSA) yang mengandalkan sifat bilangan relatif prima untuk menjaga keamanan data.
 
 Selanjutnya mengenai bilangan prima yang juga menjadi elemen utama dalam teori bilangan dan telah menjadi objek penelitian sejak masa _Phytagoras_. **Euclid** bahkan membuktikan bilangan prima sifatnya itu tak terhingga. Dalam perkembangannya juga, konsep bilangan prima telah banyak digunakan dalam teori kriptografi modern (logaritma diskrit). Logaritma diskrit ini merupakan kebalikan dari operasi perpangkatan dalam sistem aritmatika modular, yang mana permasalahan terletak pada pencarian nilai x yang memenuhi persamaan a^2 ≡ b (mod p). Contohnya, untuk a = 3, p = 17, dan b = 12 maka untuk mencari nilai x sehingga 3^x mod 17 = 12 itu bukanlah proses yang sederhana. Kompleksitas ini menjadi dasar keamanan sistem enkripsi seperti _Diffie-Hellman_ dan _ElGamal_. Dengan demikian, keterkaitan antara aritmatika modular, algoritma euclidean, bilangan prima, dan logaritma diskrit menunjukkan bahwa teori-teori masa klasik dalam dunia matematika telah menjadi fondasi utama untuk pengembangan teknologi keamanan digital modern yang digunakan hingga saat ini.
-```
 
 ---
 
@@ -129,6 +127,7 @@ Konsep-konsep seperti aritmatika modular, bilangan prima, algoritma euclidean, g
 ---
 
 ## 9. Daftar Pustaka
+```
 - Katz, J., & Lindell, Y. *Introduction to Modern Cryptography*.  
 - Stallings, W. *Cryptography and Network Security*.
 - Rosen, K. H. (2012). Elementary number theory and its applications (6th ed.). Pearson.
@@ -139,6 +138,7 @@ Konsep-konsep seperti aritmatika modular, bilangan prima, algoritma euclidean, g
 - Koblitz, N. (1994). A course in number theory and cryptography (2nd ed.). Springer.
 - Menezes, A., van Oorschot, P., & Vanstone, S. (1997). Handbook of applied cryptography. CRC Press.
 - Shoup, V. (2009). A computational introduction to number theory and algebra. Cambridge University Press.
+```
 
 ---
 
