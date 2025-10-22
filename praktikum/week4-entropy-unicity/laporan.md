@@ -31,8 +31,8 @@ Dalam konteks evaluasi kekuatan kunci, konsep entropy dan unicity distance digun
 ```
 - Python 3.11
 - Visual Studio Code
+- Online Python - IDE
 - Git dan akun GitHub  
-- Terminal
 ```
 
 ---
@@ -60,24 +60,49 @@ print("Jika diketahui entropy ruang kuncinya 99^256, maka akan menghasilkan seba
 
 Mencoba perhitungan unicity distance!
 ```python
+import math
 
+def entropy(ukuran_keyspace):
+    return math.log2(ukuran_keyspace)
+    
+def unicity_distance(HK, R=0.75, A=26):
+    return HK / (R * math.log2(A))
+
+HK = entropy(99^256)
+print("Unicity Distance untuk Caesar Cipher jika diketahui entropynya 99^256 adalah ", unicity_distance(HK))
+```
+
+Melakukan analisis dengan brute-force!
+```python
+def brute_force_time(keyspace_size, attempts_per_second=1e6):
+    seconds = keyspace_size / attempts_per_second
+    days = seconds / (3600*24)
+    return days
+
+print("Waktu brute force Caesar Cipher (26 kunci) =", brute_force_time(26), "hari")
+print("Waktu brute force AES-128 =", brute_force_time(2**128), "hari")
 ```
 
 ---
 
 ## 6. Hasil dan Pembahasan
-![Hasil Output](screenshots/output.png)
+![Hasil Output](screenshots/perhitungan-entropi.png)
+![Hasil Output](screenshots/perhitungan-unicityDistance.png)
+![Hasil Output](screenshots/brute-force.png)
 
 ---
 
 ## 7. Jawaban Pertanyaan
-- Pertanyaan 1: …  
-- Pertanyaan 2: …  
+``Pertanyaan 1: `` Entropy mencerminkan tingkat ketidakpastian atau kerandoman dalam suatu kunci kriptografi. Semakin tinggi entropy, semakin sulit kunci ditebak karena ruang kemungkinan kunci menjadi lebih besar dan acak, sehingga memperkuat keamanan terhadap serangan brute force.
+
+``Pertanyaan 2: `` Unicity distance adalah jumlah minimum ciphertext yang diperlukan oleh penyerang untuk secara teoritis dapat menentukan kunci secara unik. Jika unicity distance tinggi, maka cipher dianggap lebih aman karena membutuhkan lebih banyak data terenkripsi sebelum kunci dapat diperkirakan secara pasti.
+
+``Pertanyaan 3: `` Brute force tetap menjadi ancaman karena keamanan algoritma tidak menjamin keamanan implementasi. Jika panjang kunci lemah, entropy rendah, atau pengguna menggunakan kata sandi yang mudah ditebak, maka serangan brute force tetap dapat berhasil bahkan tanpa harus memecahkan struktur cipher itu sendiri.
 
 ---
 
 ## 8. Kesimpulan
-
+Tingkat keamanan suatu sistem kriptografi tidak hanya ditentukan oleh ukuran kunci, tetapi oleh seberapa tinggi entropi dan seberapa rendah redundansi plaintext yang memengaruhi unicity distance. Entropi yang tinggi menunjukkan bahwa kunci bersifat acak dan sulit diprediksi, sehingga membuat brute force menjadi tidak praktis secara komputasional. Sementara itu, redundansi dalam plaintext dapat mengurangi keamanan karena memungkinkan penyerang mengidentifikasi pola dekripsi yang benar dengan lebih sedikit ciphertext. Melalui konsep unicity distance, dapat dinilai jumlah minimum ciphertext yang dibutuhkan untuk menentukan kunci secara unik; semakin besar nilainya, semakin kuat cipher tersebut. Oleh karena itu, cipher modern dirancang untuk memiliki entropi tinggi, redundansi rendah, dan unicity distance besar agar mampu memberikan perlindungan maksimal terhadap brute force maupun analisis kriptografis lainnya.
 
 ---
 
@@ -92,12 +117,10 @@ Mencoba perhitungan unicity distance!
 ---
 
 ## 10. Commit Log
-(Tuliskan bukti commit Git yang relevan.  
-Contoh:
 ```
-commit abc12345
-Author: Nama Mahasiswa <email>
-Date:   2025-09-20
+commit week4-entropy-unicity
+Author: Amru Muiz Fauzan <amrumuzan092@gmail.com>
+Date:   2025-10-22
 
-    week2-cryptosystem: implementasi Caesar Cipher dan laporan )
+    week4-entropy-unicity: Entropy & Unicity Distance )
 ```
