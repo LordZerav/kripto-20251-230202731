@@ -39,21 +39,254 @@ Jika dibandingkan, cipher substitusi dan transposisi memiliki kelebihan dan keku
 1. Melakukan persiapan untuk implementasi cipher dengan python di VSC.
 2. Implementasi pertama caesar-cipher.py.
 3. Implementasi kedua vigenere-cipher.py.
-4. Implementasi simple-transposition.py.
+4. Implementasi simple-transpose.py.
 5. Mencari teori caesar cipher klasik dan dibuat rangkuman untuk dimasukkan ke bagian teori pada ``laporan.md``
 6. Menjawab pertanyaan diskusi.
    
 ---
 
 ## 5. Source Code
+**``Implementasi Caesar Cipher``**
 ```python
-ntar
+def caesar_super_simple(text, key, mode='encrypt'):
+    """
+    Versi paling sederhana dari Caesar cipher
+    mode: 'encrypt' atau 'decrypt'
+    """
+    result = ""
+    
+    for char in text:
+        if char.isalpha():
+            # Tentukan apakah huruf besar atau kecil
+            if char.isupper():
+                alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            else:
+                alphabet = 'abcdefghijklmnopqrstuvwxyz'
+            
+            # Cari posisi huruf saat ini
+            current_position = alphabet.find(char)
+            
+            if mode == 'encrypt':
+                # Geser maju untuk enkripsi
+                new_position = (current_position + key) % 26
+            else:
+                # Geser mundur untuk dekripsi
+                new_position = (current_position - key) % 26
+            
+            # Ambil huruf baru
+            new_char = alphabet[new_position]
+            result += new_char
+        else:
+            # Karakter selain huruf tetap sama
+            result += char
+    
+    return result
+
+def menu_interaktif():
+    print("=== PROGRAM CAESAR CIPHER INTERAKTIF ===")
+    
+    while True:
+        print("\nPilih menu:")
+        print("1. Enkripsi teks")
+        print("2. Dekripsi teks") 
+        print("3. Keluar")
+        
+        pilihan = input("Masukkan pilihan (1/2/3): ")
+        
+        if pilihan == '1':
+            # Enkripsi
+            print("\n--- ENKRIPSI ---")
+            plaintext = input("Masukkan plaintext: ")
+            key = int(input("Masukkan kunci (angka 1-25): "))
+            
+            if key < 1 or key > 25:
+                print("Kunci tidak valid! Menggunakan kunci 3.")
+                key = 3
+            
+            ciphertext = caesar_super_simple(plaintext, key, 'encrypt')
+            print(f"\nHasil Enkripsi: {ciphertext}")
+            
+        elif pilihan == '2':
+            # Dekripsi
+            print("\n--- DEKRIPSI ---")
+            ciphertext = input("Masukkan ciphertext: ")
+            key = int(input("Masukkan kunci (angka 1-25): "))
+            
+            if key < 1 or key > 25:
+                print("Kunci tidak valid! Menggunakan kunci 3.")
+                key = 3
+            
+            plaintext = caesar_super_simple(ciphertext, key, 'decrypt')
+            print(f"\nHasil Dekripsi: {plaintext}")
+            
+        elif pilihan == '3':
+            print("Terima kasih telah menggunakan program!")
+            break
+            
+        else:
+            print("Pilihan tidak valid! Silakan pilih 1, 2, atau 3.")
+
+# Jalankan program
+if __name__ == "__main__":
+    menu_interaktif()
+```
+
+**``Implementasi Vigenere Cipher``**
+```python
+def vigenere_encrypt(plaintext, key):
+    result = ""
+    key = key.lower()
+    key_index = 0
+    
+    for char in plaintext:
+        if char.isalpha():
+            # Hitung shift dari key
+            shift = ord(key[key_index % len(key)]) - ord('a')
+            
+            # Tentukan base (A=65, a=97)
+            base = ord('A') if char.isupper() else ord('a')
+            
+            # Enkripsi
+            new_char = chr((ord(char) - base + shift) % 26 + base)
+            result += new_char
+            key_index += 1
+        else:
+            result += char
+    
+    return result
+
+def vigenere_decrypt(ciphertext, key):
+    result = ""
+    key = key.lower()
+    key_index = 0
+    
+    for char in ciphertext:
+        if char.isalpha():
+            # Hitung shift dari key
+            shift = ord(key[key_index % len(key)]) - ord('a')
+            
+            # Tentukan base (A=65, a=97)
+            base = ord('A') if char.isupper() else ord('a')
+            
+            # Dekripsi
+            new_char = chr((ord(char) - base - shift) % 26 + base)
+            result += new_char
+            key_index += 1
+        else:
+            result += char
+    
+    return result
+
+# testing
+msg = "Aku JaWa"
+key = "UIA"
+
+enc = vigenere_encrypt(msg, key)
+dec = vigenere_decrypt(enc, key)
+
+print("Plaintext :", msg)
+print("Ciphertext:", enc)
+print("Decrypted :", dec)
+```
+
+**``Implementasi Transposisi Sederhana``**
+```python
+def transpose_encrypt_visual(plaintext, key=5):
+    """
+    Enkripsi dengan visualisasi grid
+    """
+    print(f"\n--- ENKRIPSI ---")
+    print(f"Plaintext: {plaintext}")
+    print(f"Key (kolom): {key}")
+    
+    # Buat grid
+    grid = [''] * key
+    
+    # Isi grid vertikal
+    for col in range(key):
+        pos = col
+        while pos < len(plaintext):
+            grid[col] += plaintext[pos]
+            pos += key
+    
+    # Tampilkan grid
+    print("\nGrid:")
+    max_len = max(len(col) for col in grid)
+    for i in range(max_len):
+        row_chars = []
+        for col in grid:
+            if i < len(col):
+                row_chars.append(col[i])
+            else:
+                row_chars.append(' ')
+        print("  ".join(row_chars))
+    
+    ciphertext = ''.join(grid)
+    print(f"\nCiphertext: {ciphertext}")
+    return ciphertext
+
+def transpose_decrypt_visual(ciphertext, key=5):
+    """
+    Dekripsi dengan visualisasi
+    """
+    print(f"\n--- DEKRIPSI ---")
+    print(f"Ciphertext: {ciphertext}")
+    print(f"Key (kolom): {key}")
+    
+    total_chars = len(ciphertext)
+    num_cols = (total_chars + key - 1) // key
+    num_rows = key
+    empty_cells = (num_cols * num_rows) - total_chars
+    
+    # Buat grid horizontal
+    grid = [''] * num_cols
+    col, row = 0, 0
+    
+    for char in ciphertext:
+        grid[col] += char
+        col += 1
+        if (col == num_cols) or (col == num_cols - 1 and row >= num_rows - empty_cells):
+            col = 0
+            row += 1
+    
+    # Tampilkan grid
+    print(f"\nGrid ({num_cols} kolom x {num_rows} baris):")
+    for i in range(num_rows):
+        row_chars = []
+        for j in range(num_cols):
+            if i < len(grid[j]):
+                row_chars.append(grid[j][i])
+            else:
+                row_chars.append(' ')
+        print("  ".join(row_chars))
+    
+    # Baca vertikal
+    plaintext = ''
+    for i in range(num_cols):
+        for j in range(num_rows):
+            if i < len(grid[j]):
+                plaintext += grid[j][i]
+    
+    print(f"\nPlaintext: {plaintext}")
+    return plaintext
+
+# testing
+print("=== SIMPLE TRANSPOSITION CIPHER ===")
+msg = "AKUJAWAJAWAJAWAJAWA"
+key = 4
+
+enc = transpose_encrypt_visual(msg, key)
+dec = transpose_decrypt_visual(enc, key)
+
+print(f"\n✓ Final check: '{msg}' -> '{dec}'")
 ```
 
 ---
 
 ## 6. Hasil dan Pembahasan
-![Hasil Output](screenshots/output.png)
+![Hasil Output](screenshots/caesar-cipher.png)
+![Hasil Output](screenshots/vigenere-cipher.png)
+![Hasil Output](screenshots/simple-transpose.png)
 
 ---
 
