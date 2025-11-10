@@ -45,30 +45,153 @@ RSA dikategorikan sebagai algoritma asimetris karena menggunakan sepasang kunci 
 ---
 
 ## 5. Source Code
-DES (Opsional) :
+DES :
 ```python
+from Crypto.Cipher import DES
+from Crypto.Random import get_random_bytes
+from Crypto.Util.Padding import pad, unpad
 
-```
+# Konfigurasi dulu
+BLOCK_SIZE = DES.block_size
+key = get_random_bytes(8)
 
-DES (Simulasi) :
-```python
+iv = get_random_bytes(BLOCK_SIZE)
 
+# Fungsi Enkripsi
+def encrypt_des(plaintext_bytes, key, iv):
+    "Enkripsi bytes dengan DES-CBC dan padding PKCS#7"
+    cipher = DES.new(key, DES.MODE_CBC, iv = iv)
+    padded = pad(plaintext_bytes, BLOCK_SIZE)
+
+    ciphertext = cipher.encrypt(padded)
+    return ciphertext
+
+# Fungsi Dekripsi
+def decrypt_des(ciphertext_bytes, key, iv):
+    "Dekripsi bytes dengan DES-CBC dan unpadding PKCS#7"
+    cipher = DES.new(key, DES.MODE_CBC, iv = iv)
+    padded_plain = cipher.decrypt(ciphertext_bytes)
+
+    plaintext = unpad(padded_plain, BLOCK_SIZE)
+    return plaintext
+
+# Penggunaan
+if __name__ == "__main__":
+    plaintext = b"Hello, DES CBC!"
+    print("Plaintext: ", plaintext)
+
+    # Enkripsi
+    ciphertext = encrypt_des(plaintext, key, iv)
+    print("Key (hex): ", key.hex())
+    print("IV (hex): ", iv.hex())
+    print("Ciphertext (hex): ", ciphertext.hex())
+
+    # Dekripsi
+    decrypted = decrypt_des(ciphertext, key, iv)
+    print("Decrypted: ", decrypted)
+    print("Decrypted matches plaintext: ", decrypted == plaintext)
 ```
 
 AES :
 ```python
+from Crypto.Cipher import AES
+from Crypto.Random import get_random_bytes
 
+# Konfigurasi dulu
+KEY_SIZE = 16
+key = get_random_bytes(KEY_SIZE)
+print("Key (hex): ", key.hex())
+
+# Fungsi Enkripsi
+def encrypt_aes(plaintext_bytes, key):
+    "Enkripsi bytes dengan AES-EAX"
+    cipher = AES.new(key, AES.MODE_EAX)
+
+    ciphertext, tag = cipher.encrypt_and_digest(plaintext_bytes)
+    return cipher.nonce, ciphertext, tag
+
+# Fungsi Dekripsi
+def decrypt_aes(nonce, ciphertext_bytes, tag, key):
+    "Dekripsi bytes dengan AES-EAX"
+    cipher = AES.new(key, AES.MODE_EAX, nonce=nonce)
+
+    plaintext = cipher.decrypt_and_verify(ciphertext_bytes, tag)
+    return plaintext
+
+# Penggunaan
+if __name__ == "__main__":
+    plaintext = b"Belajar AES dengan mode EAX!, contoh simpel!"
+    print("Plaintext: ", plaintext)
+
+    # Enkripsi
+    nonce, ciphertext, tag = encrypt_aes(plaintext, key)
+    print("\n--- Enkripsi ---")
+    print("Nonce (hex): ", nonce.hex())
+    print("Ciphertext (hex): ", ciphertext.hex())
+    print("Tag (hex): ", tag.hex())
+
+    # Dekripsi
+    decrypted = decrypt_aes(nonce, ciphertext, tag, key)
+    print("\n--- Dekripsi ---")
+    print("Decrypted (bytes): ", decrypted)
+    print("Decrypted teks: ", decrypted.decode())
 ```
 
 RSA : 
 ```python
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_OAEP
 
+# Generate dulu pasangan kunci RSA-nya dan disimpan ke file!
+key = RSA.generate(2048)
+private_key = key.export_key()
+public_key = key.publickey().export_key()
+
+with open("private.pem", "wb") as private_file:
+    private_file.write(private_key)
+
+with open("public.pem", "wb") as public_file:
+    public_file.write(public_key)
+
+print("✅ | Pasangan kunci RSA telah dibuat dan disimpan ke file 'private.pem' dan 'public.pem'.")
+
+# Baca kunci dari file
+with open("private.pem", "rb") as private_file:
+    private_key = RSA.import_key(private_file.read())
+
+with open("public.pem", "rb") as public_file:
+    public_key = RSA.import_key(public_file.read())
+
+print("✅ | Kunci RSA telah dibaca dari file.")
+
+# Enkripsi dengan public key
+plaintext = b"Belajar RSA pakai PyCryptodome! gini caranya."
+cipher_rsa = PKCS1_OAEP.new(public_key)
+ciphertext = cipher_rsa.encrypt(plaintext)
+
+print("\n--- Enkripsi ---")
+print("Ciphertext (hex): ", ciphertext.hex())
+
+# Dekripsi dengan private key
+cipher_rsa = PKCS1_OAEP.new(private_key)
+decrypted = cipher_rsa.decrypt(ciphertext)
+
+print("\n--- Dekripsi ---")
+print("Decrypted (bytes): ", decrypted)
+print("Decrypted teks: ", decrypted.decode())
 ```
 
 ---
 
 ## 6. Hasil dan Pembahasan
-![Hasil Output](screenshots/output.png)
+``DES-CIPHER``
+![Hasil Output](screenshots/des-cipher.png)
+
+``AES-CIPHER``
+![Hasil Output](screenshots/aes-cipher.png)
+
+``RSA-CIPHER``
+![Hasil Output](screenshots/rsa-cipher.png)
 
 ---
 
