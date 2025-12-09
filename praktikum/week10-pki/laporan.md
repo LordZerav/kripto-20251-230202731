@@ -44,22 +44,69 @@ Kegunaan PKI dengan CA mencakup non-repudiasi melalui tanda tangan digital yang 
 
 ## 5. Source Code
 ```python
-ntar
+from cryptography import x509
+from cryptography.x509.oid import NameOID
+from cryptography.hazmat.primitives import hashes, serialization
+from cryptography.hazmat.primitives.asymmetric import rsa
+from datetime import datetime, timedelta
+
+# generate key pair RSA
+key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+
+# buat subjek dan issuer (CA sederhana = self-signed)
+s = issuer = x509.Name([
+    x509.NameAttribute(NameOID.COUNTRY_NAME, u"ID"),
+    x509.NameAttribute(NameOID.ORGANIZATION_NAME, u"UPB Kriptografi"),
+    x509.NameAttribute(NameOID.COMMON_NAME, u"upbKriptografi.id"),
+])
+
+# buat sertifikat
+cert = (
+    x509.CertificateBuilder()
+    .subject_name(s)
+    .issuer_name(issuer)
+    .public_key(key.public_key())
+    .serial_number(x509.random_serial_number())
+    .not_valid_before(datetime.utcnow())
+    .not_valid_after(datetime.utcnow() + timedelta(days=365))
+    .sign(key, hashes.SHA256())
+)
+
+# save sertifikat ke pem file
+with open("sertifikat-digital.pem", "wb") as f:
+    f.write(cert.public_bytes(serialization.Encoding.PEM))
+
+print("Sertifikat berhasil dibuat dan disimpan sebagai 'sertifikat-digital.pem'")
 ```
 
 ---
 
 ## 6. Hasil dan Pembahasan
-![Hasil Output](screenshots/output.png)
+![Hasil Output](screenshots/pki_cert.png)
+![Hasil Output](screenshots/sertifikat_pem.png)
 
 ---
 
 ## 7. Jawaban Pertanyaan
 ```python
-- Pertanyaan 1: …  
-- Pertanyaan 2: …
+- Pertanyaan : Jelaskan bagaimana CA digunakan untuk menjamin keaslian sertifikat!
+- Pertanyaan : Bagaimana browser memverifikasi sertifikat HTTPS?
+- Pertanyaan : Apa yang terjadi jika CA palsu menerbitkan sertifikat?
+- Pertanyaan : Mengapa PKI penting dalam komunikasi aman (misalnya transaksi online)?
 ```
+- CA digunakan untuk memverifikasi identitas pemohon melalui proses ketat (seperti dokumen dan CSR), kemudian menandatangani sertifikat dengan kunci privat CA sendiri, sehingga penerima dapat memvalidasi tanda tangan tersebut menggunakan kunci publik CA untuk memastikan keaslian dan integritas.​
+- Browser akan memeriksa rantai sertifikat hingga root CA tepercaya di trust store, validasi tanda tangan digital, masa berlaku, CRL/OCSP untuk status pencabutan, dan kesesuaian domain, sebelum menerima handshake TLS.​
+- Yang akan terjadi adalah sertifikat palsu bisa diterima kalau root CA palsu ditambahkan ke trust store korban, memungkinkan MITM untuk dekripsi lalu lintas, pencurian data, atau impersonasi situs sah, merusak kepercayaan PKI secara keseluruhan.​
+- Karena dengan PKI maka bisa menyediakan autentikasi server, enkripsi end-to-end, dan non-repudiasi via sertifikat CA, mencegah pemalsuan identitas, intersepsi data, dan penyangkalan transaksi di e-commerce, banking, dan HTTPS.​
 
+```python
+- Pertanyaan 1: Apa fungsi utama Certificate Authority (CA)?
+- Pertanyaan 2: Mengapa self-signed certificate tidak cukup untuk sistem produksi?
+- Pertanyaan 3: Bagaimana PKI mencegah serangan MITM dalam komunikasi TLS/HTTPS?
+```
+1. Menerbitkan, memverifikasi, dan mencabut sertifikat digital untuk mengikat kunci publik dengan identitas tepercaya dalam PKI.​
+2. Tidak ada verifikasi independen, rentan pemalsuan identitas, dan browser/OS menolaknya karena kurang kepercayaan hierarki CA.​
+3. Sertifikat CA memvalidasi identitas server via rantai kepercayaan, memastikan kunci publik asli sebelum handshake enkripsi.​
 
 ---
 
@@ -76,8 +123,6 @@ Certificate Authority (CA) dan Public Key Infrastructure (PKI) membentuk fondasi
 - Rinaldi Munir. (n.d.). Public Key Infrastructure (PKI). Institut Teknologi Bandung. https://informatika.stei.itb.ac.id/~rinaldi.munir/Kriptografi/Public%20Key%20Infrastructure.pdf​
 - National Institute of Standards and Technology. (2013). Digital Signature Standard (DSS) (FIPS 186-4). U.S. Department of Commerce. https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.186-4.pdf​
 - Katz, J., & Lindell, Y. (2020). Introduction to modern cryptography (3rd ed.). CRC Press (Chapter on PKI and CAs).​
----
-
 ```
 
 ## 10. Commit Log
